@@ -81,11 +81,7 @@ function M.autocmds(config)
   vim.cmd([[  autocmd!]])
   vim.cmd([[  autocmd ColorSchemePre * lua require("dusk.util").on_colorscheme()]])
 
-  vim.cmd(
-    [[  autocmd FileType ]]
-      .. table.concat(config.sidebars, ",")
-      .. [[ setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB]]
-  )
+  vim.cmd([[  autocmd FileType ]] .. table.concat(config.sidebars, ",") .. [[ setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB]])
   if vim.tbl_contains(config.sidebars, "terminal") then
     vim.cmd([[  autocmd TermOpen * setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB]])
   end
@@ -99,11 +95,9 @@ end
 ---@param str string template string
 ---@param table table key value pairs to replace in the string
 function M.template(str, table)
-  return (
-    str:gsub("($%b{})", function(w)
-      return vim.tbl_get(table, unpack(vim.split(w:sub(3, -2), ".", { plain = true }))) or w
-    end)
-  )
+  return (str:gsub("($%b{})", function(w)
+    return vim.tbl_get(table, unpack(vim.split(w:sub(3, -2), ".", { plain = true }))) or w
+  end))
 end
 
 function M.syntax(syntax)
@@ -115,15 +109,12 @@ end
 ---@param colors ColorScheme
 function M.terminal(colors)
   local util = require("dusk.util")
-  -- dark
   vim.g.terminal_color_0 = colors.black
   vim.g.terminal_color_8 = util.lighten(colors.black, 0.10)
 
-  -- light
   vim.g.terminal_color_7 = colors.white
   vim.g.terminal_color_15 = util.lighten(colors.white, 0.10)
 
-  -- colors
   vim.g.terminal_color_1 = colors.red
   vim.g.terminal_color_9 = colors.red
 
@@ -197,9 +188,11 @@ function M.load(theme)
 
   M.autocmds(theme.config)
 
-  vim.defer_fn(function()
+  local callback = function()
     M.syntax(theme.defer)
-  end, 100)
+  end
+
+  vim.defer_fn(callback, 100)
 end
 
 return M

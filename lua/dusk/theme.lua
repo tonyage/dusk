@@ -57,15 +57,15 @@ function M.setup()
     Normal = { fg = c.white, bg = options.transparent and c.none or c.black }, -- normal text
     NormalNC = { fg = c.white, bg = options.transparent and c.none or options.dim_inactive and c.black or c.black }, -- normal text in non-current windows
     NormalSB = { fg = c.white, bg = c.black }, -- normal text in sidebar
-    NormalFloat = { fg = c.white, bg = c.window.bg }, -- Normal text in floating windows.
-    FloatBorder = { fg = c.border_highlight, bg = c.window.bg },
+    NormalFloat = { fg = c.white, bg = c.bg_float }, -- Normal text in floating windows.
+    FloatBorder = { fg = c.border_highlight, bg = c.bg_float },
     Pmenu = { bg = c.window.bg, fg = c.white }, -- Popup menu: normal item.
     PmenuSel = { bg = c.window.bg1 }, -- Popup menu: selected item.
     PmenuSbar = { bg = util.lighten(c.window.bg, 0.95) }, -- Popup menu: scrollbar.
     PmenuThumb = { bg = util.darken(c.white, 0.50) }, -- Popup menu: Thumb of the scrollbar.
     Question = { fg = c.blue }, -- |hit-enter| prompt and yes/no questions
     QuickFixLine = { bg = c.bg_visual, bold = true }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    Search = { bg = c.bg_search, fg = c.black }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
+    Search = { bg = c.yellow, fg = c.black }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
     IncSearch = { bg = c.orange, fg = c.black }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     CurSearch = { link = "IncSearch" },
     SpecialKey = { fg = c.window.muted_fg }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
@@ -73,8 +73,8 @@ function M.setup()
     SpellCap = { sp = c.warning, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     SpellLocal = { sp = c.info, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare = { sp = c.hint, undercurl = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-    StatusLine = { fg = c.white, bg = c.window.bg2 }, -- status line of current window
-    StatusLineNC = { fg = c.gutter.muted_fg, bg = c.window.bg2 }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+    StatusLine = { fg = c.white, bg = c.window.bg }, -- status line of current window
+    StatusLineNC = { fg = c.gutter.muted_fg, bg = c.window.bg }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     TabLine = { bg = c.window.bg, fg = c.white }, -- tab pages line, not active tab page label
     TabLineFill = { bg = c.window.bg }, -- tab pages line, where there are no labels
     TabLineSel = { fg = c.black, bg = c.blue }, -- tab pages line, active tab page label
@@ -144,7 +144,7 @@ function M.setup()
     htmlH2 = { fg = c.blue, bold = true },
 
     -- mkdHeading = { fg = c.orange, bold = true },
-    -- mkdCode = { bg = c.terminal_black, fg = c.white },
+    -- mkdCode = { bg = c.window.bg, fg = c.white },
     mkdCodeDelimiter = { bg = c.black, fg = c.white },
     mkdCodeStart = { fg = c.cyan, bold = true },
     mkdCodeEnd = { fg = c.cyan, bold = true },
@@ -186,16 +186,8 @@ function M.setup()
 
     LspSignatureActiveParameter = { bg = util.darken(c.bg_visual, 0.4), bold = true },
     LspCodeLens = { fg = c.window.muted_fg },
-
     LspInfoBorder = { fg = c.border_highlight, bg = c.window.bg },
 
-    ALEErrorSign = { fg = c.error },
-    ALEWarningSign = { fg = c.warning },
-
-    -- These groups are for the Neovim tree-sitter highlights.
-    -- As of writing, tree-sitter support is a WIP, group names may change.
-
-    --- Misc
     -- TODO:
     -- ["@comment.documentation"] = { },
     ["@operator"] = { fg = c.white }, -- For any operator: `+`, but also `->` and `*` in C.
@@ -213,7 +205,7 @@ function M.setup()
 
     --- Functions
     ["@constructor"] = { fg = c.yellow, bold = true }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
-    ["@parameter"] = { fg = c.yellow }, -- For parameters of a function.
+    ["@parameter"] = { fg = c.orange }, -- For parameters of a function.
     -- TODO:
     -- ["@parameter.builtin"] = {}, -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
 
@@ -315,39 +307,12 @@ function M.setup()
     -- NeotestMarked = { fg = c.blue },
     -- NeotestTarget = { fg = c.blue },
     --[[ NeotestUnknown = {}, ]]
-
-    -- GitGutter
-    GitGutterAdd = { fg = c.git.add }, -- diff mode: Added line |diff.txt|
-    GitGutterChange = { fg = c.git.change }, -- diff mode: Changed line |diff.txt|
-    GitGutterDelete = { fg = c.git.delete }, -- diff mode: Deleted line |diff.txt|
-
-    -- GitSigns
     GitSignsAdd = { fg = c.git.add }, -- diff mode: Added line |diff.txt|
     GitSignsChange = { fg = c.git.change }, -- diff mode: Changed line |diff.txt|
     GitSignsDelete = { fg = c.git.delete }, -- diff mode: Deleted line |diff.txt|
 
-    -- Telescope
     TelescopeBorder = { fg = c.border_highlight, bg = c.window.bg },
     TelescopeNormal = { fg = c.white, bg = c.window.bg },
-
-    -- NvimTree
-    -- NvimTreeNormal = { fg = c.white, bg = c.black },
-    -- NvimTreeWinSeparator = {
-    --   fg = options.styles.sidebars == "transparent" and c.border or c.black,
-    --   bg = c.black,
-    -- },
-    -- NvimTreeNormalNC = { fg = c.white, bg = c.black },
-    -- NvimTreeRootFolder = { fg = c.blue, bold = true },
-    -- NvimTreeGitDirty = { fg = c.git.change },
-    -- NvimTreeGitNew = { fg = c.git.add },
-    -- NvimTreeGitDeleted = { fg = c.git.delete },
-    -- NvimTreeOpenedFile = { bg = c.window.bg },
-    -- NvimTreeSpecialFile = { fg = c.magenta, underline = true },
-    -- NvimTreeIndentMarker = { fg = c.white },
-    -- NvimTreeImageFile = { fg = c.white },
-    -- NvimTreeSymlink = { fg = c.blue },
-    -- NvimTreeFolderIcon = { bg = c.none, fg = c.blue },
-    -- NvimTreeFolderName= { fg = c.white_float },
 
     NeoTreeNormal = { fg = c.white, bg = options.transparent and c.none or c.window.bg },
     NeoTreeNormalNC = { fg = c.white, bg = options.transparent and c.none or c.window.bg },
@@ -360,72 +325,67 @@ function M.setup()
     NeoTreeTabSeparatorInactive = { bg = c.black, fg = c.black },
     NeoTreeSymbolicLinkTarget = { fg = colors.cyan },
 
-    -- Alpha
     AlphaShortcut = { fg = c.orange },
     AlphaHeader = { fg = c.green },
     AlphaHeaderLabel = { fg = c.orange },
     AlphaFooter = { fg = c.blue, bold = true },
     AlphaButtons = { fg = c.cyan },
 
-    -- WhichKey
     WhichKey = { fg = c.red, bold = true },
     WhichKeyGroup = { fg = c.orange },
     WhichKeyDesc = { fg = c.blue },
     WhichKeySeperator = { fg = c.window.muted_fg },
-    WhichKeyFloat = { bg = c.window.bg },
+    WhichKeyFloat = { bg = c.bg_float },
 
-    -- NeoVim
     healthError = { fg = c.error },
     healthSuccess = { fg = c.green },
     healthWarning = { fg = c.warning },
 
-    -- BufferLine
-    BufferLineIndicatorSelected = { fg = c.git.change },
+    BufferLineIndicatorSelected = { fg = c.blue },
     -- BufferCurrentIcon = { bg = c.white, fg = c.},
-    BufferCurrentINFO = { bg = c.window.bg1, fg = c.info },
-    BufferCurrentWARN = { bg = c.window.bg1, fg = c.warning },
-    BufferCurrentIndex = { bg = c.window.bg1, fg = c.info },
-    BufferCurrentMod = { bg = c.window.bg1, fg = c.warning },
-    BufferCurrentSign = { bg = c.window.bg1, fg = c.info },
-    BufferCurrentTarget = { bg = c.window.bg1, fg = c.red },
-    BufferAlternate = { bg = c.window.bg1, fg = c.white },
-    BufferAlternateERROR = { bg = c.window.bg1, fg = c.error },
-    BufferAlternateHINT = { bg = c.window.bg1, fg = c.hint },
+    -- BufferCurrentINFO = { bg = c.window.bg1, fg = c.info },
+    -- BufferCurrentWARN = { bg = c.window.bg1, fg = c.warning },
+    -- BufferCurrentIndex = { bg = c.window.bg1, fg = c.info },
+    -- BufferCurrentMod = { bg = c.window.bg1, fg = c.warning },
+    -- BufferCurrentSign = { bg = c.window.bg1, fg = c.info },
+    -- BufferCurrentTarget = { bg = c.window.bg1, fg = c.red },
+    -- BufferAlternate = { bg = c.window.bg1, fg = c.white },
+    -- BufferAlternateERROR = { bg = c.window.bg1, fg = c.error },
+    -- BufferAlternateHINT = { bg = c.window.bg1, fg = c.hint },
     -- BufferAlternateIcon = { bg = c.window.bg1, fg = c. },
-    BufferAlternateIndex = { bg = c.window.bg1, fg = c.info },
-    BufferAlternateINFO = { bg = c.window.bg1, fg = c.info },
-    BufferAlternateMod = { bg = c.window.bg1, fg = c.warning },
-    BufferAlternateSign = { bg = c.window.bg1, fg = c.info },
-    BufferAlternateTarget = { bg = c.window.bg1, fg = c.red },
-    BufferAlternateWARN = { bg = c.window.bg1, fg = c.warning },
-    BufferVisible = { bg = c.window.bg, fg = c.white },
-    BufferVisibleERROR = { bg = c.window.bg, fg = c.error },
-    BufferVisibleHINT = { bg = c.window.bg, fg = c.hint },
+    -- BufferAlternateIndex = { bg = c.window.bg1, fg = c.info },
+    -- BufferAlternateINFO = { bg = c.window.bg1, fg = c.info },
+    -- BufferAlternateMod = { bg = c.window.bg1, fg = c.warning },
+    -- BufferAlternateSign = { bg = c.window.bg1, fg = c.info },
+    -- BufferAlternateTarget = { bg = c.window.bg1, fg = c.red },
+    -- BufferAlternateWARN = { bg = c.window.bg1, fg = c.warning },
+    -- BufferVisible = { bg = c.window.bg, fg = c.white },
+    -- BufferVisibleERROR = { bg = c.window.bg, fg = c.error },
+    -- BufferVisibleHINT = { bg = c.window.bg, fg = c.hint },
     -- BufferVisibleIcon = { bg = c.window.bg, fg = c. },
-    BufferVisibleINFO = { bg = c.window.bg, fg = c.info },
-    BufferVisibleWARN = { bg = c.window.bg, fg = c.warning },
-    BufferVisibleIndex = { bg = c.window.bg, fg = c.info },
-    BufferVisibleMod = { bg = c.window.bg, fg = c.warning },
-    BufferVisibleSign = { bg = c.window.bg, fg = c.info },
-    BufferVisibleTarget = { bg = c.window.bg, fg = c.red },
-    BufferInactive = { bg = c.window.bg, fg = c.window.muted_fg },
-    BufferInactiveERROR = { bg = c.window.bg, fg = util.darken(c.error, 0.7) },
-    BufferInactiveHINT = { bg = c.window.bg, fg = util.darken(c.hint, 0.7) },
+    -- BufferVisibleINFO = { bg = c.window.bg, fg = c.info },
+    -- BufferVisibleWARN = { bg = c.window.bg, fg = c.warning },
+    -- BufferVisibleIndex = { bg = c.window.bg, fg = c.info },
+    -- BufferVisibleMod = { bg = c.window.bg, fg = c.warning },
+    -- BufferVisibleSign = { bg = c.window.bg, fg = c.info },
+    -- BufferVisibleTarget = { bg = c.window.bg, fg = c.red },
+    -- BufferInactive = { bg = c.window.bg, fg = c.window.muted_fg },
+    -- BufferInactiveERROR = { bg = c.window.bg, fg = util.darken(c.error, 0.7) },
+    -- BufferInactiveHINT = { bg = c.window.bg, fg = util.darken(c.hint, 0.7) },
     -- BufferInactiveIcon = { bg = c.window.bg, fg = util.darken(c., 0.7) },
-    BufferInactiveINFO = { bg = c.window.bg, fg = util.darken(c.info, 0.7) },
-    BufferInactiveWARN = { bg = c.window.bg, fg = util.darken(c.warning, 0.7) },
-    BufferInactiveIndex = { bg = c.window.bg, fg = c.window.muted_fg },
-    BufferInactiveMod = { bg = c.window.bg, fg = util.darken(c.warning, 0.7) },
-    BufferInactiveSign = { bg = c.window.bg, fg = c.border_highlight },
-    BufferInactiveTarget = { bg = c.window.bg, fg = c.red },
-    BufferOffset = { bg = c.window.bg, fg = c.window.muted_fg },
-    BufferTabpageFill = { bg = c.window.bg, fg = c.window.muted_fg },
-    BufferTabpages = { bg = c.window.bg, fg = c.none },
+    -- BufferInactiveINFO = { bg = c.window.bg, fg = util.darken(c.info, 0.7) },
+    -- BufferInactiveWARN = { bg = c.window.bg, fg = util.darken(c.warning, 0.7) },
+    -- BufferInactiveIndex = { bg = c.window.bg, fg = c.window.muted_fg },
+    -- BufferInactiveMod = { bg = c.window.bg, fg = util.darken(c.warning, 0.7) },
+    -- BufferInactiveSign = { bg = c.window.bg, fg = c.border_highlight },
+    -- BufferInactiveTarget = { bg = c.window.bg, fg = c.red },
+    -- BufferOffset = { bg = c.window.bg, fg = c.window.muted_fg },
+    -- BufferTabpageFill = { bg = c.window.bg, fg = c.window.muted_fg },
+    -- BufferTabpages = { bg = c.window.bg, fg = c.none },
 
     TSNodeKey = { fg = c.magenta, bold = true },
     TSNodeUnmatched = { fg = c.window.muted_fg },
 
-    -- Cmp
     CmpDocumentation = { fg = c.white, bg = c.window.bg },
     CmpDocumentationBorder = { fg = c.border_highlight, bg = c.window.bg },
 
@@ -529,10 +489,9 @@ function M.setup()
     NotifyDEBUGBody = { fg = c.white, bg = options.transparent and c.none or c.black },
     NotifyTRACEBody = { fg = c.white, bg = options.transparent and c.none or c.black },
 
-    -- Mini
     MiniCompletionActiveParameter = { underline = true },
-    -- MiniCursorword = { bg = c.white },
-    -- MiniCursorwordCurrent = { bg = c.white },
+    MiniCursorword = { bg = c.window.bg1 },
+    MiniCursorwordCurrent = { bg = c.window.bg1 },
 
     MiniIndentscopeSymbol = { fg = c.yellow },
     MiniIndentscopePrefix = { nocombine = true }, -- Make it invisible
@@ -577,8 +536,6 @@ function M.setup()
     MiniTestPass = { fg = c.green, bold = true },
 
     MiniTrailspace = { bg = c.red },
-
-    -- Noice
 
     NoiceCompletionItemKindDefault = { fg = c.white, bg = c.none },
     NoiceCompletionItemKindKeyword = { fg = c.magenta, bg = c.none, italic = true, bold = true },
