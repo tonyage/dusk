@@ -6,7 +6,7 @@ local dusk = {}
 dusk.normal = {
   a = { bg = colors.blue, fg = colors.black },
   b = { bg = colors.window.bg1, fg = colors.white },
-  c = { bg = colors.bg_statusline, fg = colors.window.muted_fg },
+  c = { bg = colors.window.bg, fg = colors.window.muted_fg },
 }
 
 dusk.insert = {
@@ -35,9 +35,9 @@ dusk.terminal = {
 }
 
 dusk.inactive = {
-  a = { bg = colors.bg_statusline, fg = colors.window.muted_fg },
-  b = { bg = colors.bg_statusline, fg = colors.window.bg1, gui = "bold" },
-  c = { bg = colors.bg_statusline, fg = colors.window.bg1 },
+  a = { bg = colors.window.bg, fg = colors.window.muted_fg },
+  b = { bg = colors.window.bg, fg = colors.window.bg1, gui = "bold" },
+  c = { bg = colors.window.bg, fg = colors.window.bg1 },
 }
 
 if config.lualine_bold then
