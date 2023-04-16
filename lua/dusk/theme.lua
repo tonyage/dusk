@@ -60,9 +60,9 @@ function M.setup()
     NormalFloat = { fg = c.white, bg = c.window.bg }, -- Normal text in floating windows.
     FloatBorder = { fg = c.border_highlight, bg = c.window.bg },
     Pmenu = { bg = c.window.bg, fg = c.white }, -- Popup menu: normal item.
-    PmenuSel = { bg = c.window.bg }, -- Popup menu: selected item.
+    PmenuSel = { bg = c.window.bg1 }, -- Popup menu: selected item.
     PmenuSbar = { bg = util.lighten(c.window.bg, 0.95) }, -- Popup menu: scrollbar.
-    PmenuThumb = { bg = c.white }, -- Popup menu: Thumb of the scrollbar.
+    PmenuThumb = { bg = util.darken(c.white, 0.50) }, -- Popup menu: Thumb of the scrollbar.
     Question = { fg = c.blue }, -- |hit-enter| prompt and yes/no questions
     QuickFixLine = { bg = c.bg_visual, bold = true }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
     Search = { bg = c.bg_search, fg = c.black }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
@@ -79,8 +79,8 @@ function M.setup()
     TabLineFill = { bg = c.window.bg }, -- tab pages line, where there are no labels
     TabLineSel = { fg = c.black, bg = c.blue }, -- tab pages line, active tab page label
     Title = { fg = c.cyan, bold = true }, -- titles for output from ":set all", ":autocmd" etc.
-    Visual = { bg = c.bg_visual }, -- Visual mode selection
-    VisualNOS = { bg = c.bg_visual }, -- Visual mode selection when vim is "Not Owning the Selection".
+    Visual = { bg = c.window.bg1 }, -- Visual mode selection
+    VisualNOS = { bg = c.window.bg1 }, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg = { fg = c.warning }, -- warning messages
     Whitespace = { fg = c.white }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
     WildMenu = { bg = c.bg_visual }, -- current match in 'wildmenu' completion
@@ -436,8 +436,6 @@ function M.setup()
 
     CmpItemMenu = { fg = c.window.muted_fg, bg = c.none },
 
-    -- CmpItemKindDefault = { fg = c.white_dark, bg = c.none },
-
     -- TODO: link these to treesitter settings
     CmpItemKindKeyword = { fg = c.magenta, bg = c.none },
     CmpItemKindVariable = { fg = c.magenta, bg = c.none },
@@ -499,7 +497,7 @@ function M.setup()
     NavicText = { fg = c.window.muted_fg, bg = c.none },
     NavicSeparator = { fg = c.window.muted_fg, bg = c.none },
 
-    IndentBlanklineChar = { fg = c.window.muted_fg, nocombine = true },
+    IndentBlanklineChar = { fg = c.window.bg, nocombine = true },
     IndentBlanklineContextChar = { fg = c.magenta, nocombine = true },
 
     -- Lazy
@@ -507,7 +505,6 @@ function M.setup()
     LazyProgressTodo = { bold = true, fg = c.white },
 
     -- Notify
-    NotifyBackground = { fg = c.white, bg = options.transparent and c.none or c.black },
     NotifyERRORBorder = { fg = util.darken(c.error, 0.3), bg = options.transparent and c.none or c.black },
     NotifyWARNBorder = { fg = util.darken(c.warning, 0.3), bg = options.transparent and c.none or c.black },
     NotifyINFOBorder = { fg = util.darken(c.info, 0.3), bg = options.transparent and c.none or c.black },

@@ -2,30 +2,6 @@ local util = require("dusk.util")
 
 local M = {}
 
--- local gradients = {}
---
--- gradients.dark = {
---   black   = "#000000",
---   black00 = "#161616",
---   black05 = "#222222",
---   black10 = "#2d2d2d",
---   black15 = "#393939",
---   black20 = "#454545",
---   black25 = "#505050",
---   black90 = "#707070",
--- }
---
--- gradients.light = {
---   white   = "#ffffff",
---   white00 = "#abb2bf",
---   white05 = "#b5bcc9",
---   white10 = "#b9bfcc",
---   white15 = "#bcc3ce",
---   white20 = "#c4c9d4",
---   white25 = "#c7cdd6",
---   white90 = "#f8f8fa",
--- }
-
 local palette = {
   none    = "NONE",
   black   = "#161616",
@@ -117,8 +93,8 @@ function M.setup(opts)
 
   colors.diff = {
     add = util.darken(colors.green, 0.15),
+    change = util.darken(colors.yellow, 0.15),
     delete = util.darken(colors.red, 0.15),
-    change = util.darken(colors.blue, 0.15),
     text = colors.black,
   }
 
@@ -140,7 +116,7 @@ function M.setup(opts)
 
   colors.error = colors.red
   colors.warning = colors.yellow
-  colors.info = colors.cyan
+  colors.info = colors.blue
   colors.hint = colors.magenta
 
   config.options.override.colors(colors)
