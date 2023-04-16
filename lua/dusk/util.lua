@@ -59,7 +59,6 @@ function M.highlight(group, hl)
     if type(hl.style) == "table" then
       hl = vim.tbl_extend("force", hl, hl.style)
     elseif hl.style:lower() ~= "none" then
-      -- handle old string style definitions
       for s in string.gmatch(hl.style, "([^,]+)") do
         hl[s] = true
       end
@@ -188,11 +187,9 @@ function M.load(theme)
 
   M.autocmds(theme.config)
 
-  local callback = function()
+  vim.defer_fn(function()
     M.syntax(theme.defer)
-  end
-
-  vim.defer_fn(callback, 100)
+  end, 100)
 end
 
 return M

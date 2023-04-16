@@ -37,7 +37,7 @@ function M.setup()
     DiffChange = { bg = c.diff.change }, -- diff mode: Changed line |diff.txt|
     DiffDelete = { bg = c.diff.delete }, -- diff mode: Deleted line |diff.txt|
     DiffText = { bg = c.diff.text }, -- diff mode: Changed text within a changed line |diff.txt|
-    EndOfBuffer = { fg = c.black }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
+    EndOfBuffer = { fg = c.window.bg2 }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
     ErrorMsg = { fg = c.error }, -- error messages on the command line
     VertSplit = { fg = c.border }, -- the column separating vertically split windows
     WinSeparator = { fg = c.border, bold = true }, -- the column separating vertically split windows
@@ -50,21 +50,20 @@ function M.setup()
     CursorLineNr = { fg = c.gutter.focus_fg }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     MatchParen = { fg = c.orange, bold = true }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     ModeMsg = { fg = c.white, bold = true }, -- 'showmode' message (e.g., "-- INSERT -- ")
-    MsgArea = { fg = c.white }, -- Area for messages and cmdline
-    -- MsgSeparator= { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
+    MsgArea = { fg = c.white, bg = c.black }, -- Area for messages and cmdline
     MoreMsg = { fg = c.blue }, -- |more-prompt|
     NonText = { fg = c.window.muted_fg }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     Normal = { fg = c.white, bg = options.transparent and c.none or c.black }, -- normal text
     NormalNC = { fg = c.white, bg = options.transparent and c.none or options.dim_inactive and c.black or c.black }, -- normal text in non-current windows
     NormalSB = { fg = c.white, bg = c.black }, -- normal text in sidebar
-    NormalFloat = { fg = c.white, bg = c.bg_float }, -- Normal text in floating windows.
-    FloatBorder = { fg = c.border_highlight, bg = c.bg_float },
+    NormalFloat = { fg = c.white, bg = c.window.bg }, -- Normal text in floating windows.
+    FloatBorder = { fg = c.window.bg2, bg = c.window.bg },
     Pmenu = { bg = c.window.bg, fg = c.white }, -- Popup menu: normal item.
     PmenuSel = { bg = c.window.bg1 }, -- Popup menu: selected item.
     PmenuSbar = { bg = util.lighten(c.window.bg, 0.95) }, -- Popup menu: scrollbar.
     PmenuThumb = { bg = util.darken(c.white, 0.50) }, -- Popup menu: Thumb of the scrollbar.
     Question = { fg = c.blue }, -- |hit-enter| prompt and yes/no questions
-    QuickFixLine = { bg = c.bg_visual, bold = true }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
+    QuickFixLine = { bg = c.window.bg, bold = true }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
     Search = { bg = c.yellow, fg = c.black }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
     IncSearch = { bg = c.orange, fg = c.black }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     CurSearch = { link = "IncSearch" },
@@ -73,17 +72,17 @@ function M.setup()
     SpellCap = { sp = c.warning, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     SpellLocal = { sp = c.info, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare = { sp = c.hint, undercurl = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-    StatusLine = { fg = c.white, bg = c.window.bg }, -- status line of current window
+    StatusLine = { fg = c.white, bg = c.statusline }, -- status line of current window
     StatusLineNC = { fg = c.gutter.muted_fg, bg = c.window.bg }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     TabLine = { bg = c.window.bg, fg = c.white }, -- tab pages line, not active tab page label
-    TabLineFill = { bg = c.window.bg }, -- tab pages line, where there are no labels
+    TabLineFill = { bg = c.window.bg, fg = c.window.bg }, -- tab pages line, where there are no labels
     TabLineSel = { fg = c.black, bg = c.blue }, -- tab pages line, active tab page label
     Title = { fg = c.cyan, bold = true }, -- titles for output from ":set all", ":autocmd" etc.
-    Visual = { bg = c.window.bg1 }, -- Visual mode selection
-    VisualNOS = { bg = c.window.bg1 }, -- Visual mode selection when vim is "Not Owning the Selection".
+    Visual = { bg = c.window.bg }, -- Visual mode selection
+    VisualNOS = { bg = c.window.bg }, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg = { fg = c.warning }, -- warning messages
-    Whitespace = { fg = c.white }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
-    WildMenu = { bg = c.bg_visual }, -- current match in 'wildmenu' completion
+    Whitespace = { fg = c.window.bg }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+    WildMenu = { bg = c.blue }, -- current match in 'wildmenu' completion
 
     -- These groups are not listed as default vim groups,
     -- but they are defacto standard group names for syntax highlighting.
@@ -184,48 +183,41 @@ function M.setup()
     DiagnosticUnderlineInfo = { undercurl = true, sp = c.info }, -- Used to underline "Information" diagnostics
     DiagnosticUnderlineHint = { undercurl = true, sp = c.hint }, -- Used to underline "Hint" diagnostics
 
-    LspSignatureActiveParameter = { bg = util.darken(c.bg_visual, 0.4), bold = true },
+    LspSignatureActiveParameter = { bg = util.darken(c.blue, 0.4), bold = true },
     LspCodeLens = { fg = c.window.muted_fg },
-    LspInfoBorder = { fg = c.border_highlight, bg = c.window.bg },
+    LspInfoBorder = { fg = c.window.bg, bg = c.window.bg },
 
     -- TODO:
-    -- ["@comment.documentation"] = { },
+    -- [""] = { },
     ["@operator"] = { fg = c.white }, -- For any operator: `+`, but also `->` and `*` in C.
-
-    --- Punctuation
     ["@punctuation.delimiter"] = { fg = c.white }, -- For delimiters ie: `.`
     ["@punctuation.bracket"] = { fg = c.white }, -- For brackets and parens.
     ["@punctuation.special"] = { fg = c.red }, -- For special punctutation that does not fall in the catagories before.
     ["@punctuation.special.markdown"] = { fg = c.orange, bold = true },
 
-    --- Literals
     ["@string.documentation"] = { fg = c.yellow },
     ["@string.regex"] = { fg = c.cyan },
     ["@string.escape"] = { fg = c.red }, -- For escape characters within a string.
 
-    --- Functions
     ["@constructor"] = { fg = c.yellow, bold = true }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
     ["@parameter"] = { fg = c.orange }, -- For parameters of a function.
-    -- TODO:
-    -- ["@parameter.builtin"] = {}, -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
+    ["@functions"] = { fg = c.blue },
+    ["@functions.builtin"] = { fg = c.blue, italic = true },
 
-    --- Keywords
-    ["@keyword"] = { fg = c.magenta, style = options.styles.keywords }, -- For keywords that don't fall in previous categories.
     -- TODO:
     -- ["@keyword.coroutine"] = { }, -- For keywords related to coroutines.
+    ["@keyword"] = { fg = c.magenta, style = options.styles.keywords }, -- For keywords that don't fall in previous categories.
     ["@keyword.function"] = { fg = c.magenta, style = options.styles.functions }, -- For keywords used to define a fuction.
+    ["@keyword.operator"] = { fg = c.magenta, style = options.styles.keywords },
 
     ["@label"] = { fg = c.blue }, -- For labels: `label:` in C and `:label:` in Lua.
 
-    --- Types
     ["@field"] = { fg = c.red }, -- For fields.
     ["@property"] = { fg = c.red },
 
-    --- Identifiers
     ["@variable"] = { fg = c.white, style = options.styles.variables }, -- Any variable name that does not have another highlight.
-    ["@variable.builtin"] = { fg = c.red }, -- Variable names that are defined by the languages, like `this` or `self`.
+    ["@variable.builtin"] = { fg = c.red, italic = true }, -- Variable names that are defined by the languages, like `this` or `self`.
 
-    --- Text
     ["@text.literal.markdown"] = { link = "Normal" },
     ["@text.literal.markdown_inline"] = { bg = c.black, fg = c.blue },
     ["@text.reference"] = { fg = c.cyan },
@@ -255,8 +247,7 @@ function M.setup()
     ["@lsp.typemod.string.injected"] = { link = "@string" },
     ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
     ["@lsp.typemod.variable.injected"] = { link = "@variable" },
-    -- NOTE: maybe add these with distinct highlights?
-    -- ["@lsp.typemod.variable.globalScope"] (global variables)
+    ["@lsp.typemod.variable.globalScope"] = { fg = c.red, bold = true },
 
     -- LspTrouble
     TroubleText = { fg = c.white },
@@ -307,18 +298,23 @@ function M.setup()
     -- NeotestMarked = { fg = c.blue },
     -- NeotestTarget = { fg = c.blue },
     --[[ NeotestUnknown = {}, ]]
+
     GitSignsAdd = { fg = c.git.add }, -- diff mode: Added line |diff.txt|
     GitSignsChange = { fg = c.git.change }, -- diff mode: Changed line |diff.txt|
     GitSignsDelete = { fg = c.git.delete }, -- diff mode: Deleted line |diff.txt|
 
-    TelescopeBorder = { fg = c.border_highlight, bg = c.window.bg },
-    TelescopeNormal = { fg = c.white, bg = c.window.bg },
+    TelescopeBorder = { bg = c.window.bg, fg = c.gutter.muted_fg },
+    TelescopeNormal = { bg = c.window.bg },
+    TelescopeTitle = { bg = c.window.bg, bold = true },
+    TelescopeSelection = { bg = c.window.bg1 },
+    TelescopeSelectionCaret = { fg = c.yellow },
 
     NeoTreeNormal = { fg = c.white, bg = options.transparent and c.none or c.window.bg },
     NeoTreeNormalNC = { fg = c.white, bg = options.transparent and c.none or c.window.bg },
+    NeoTreeFloatBorder = { fg = c.window.bg1, bg = c.window.bg1 },
     NeoTreeEndOfBuffer = { fg = c.window.bg, bg = options.transparent and c.none or c.window.bg },
     NeoTreeDimText = { fg = c.window.muted_fg },
-    NeoTreeWinSeparator = { fg = c.black, bg = options.transparent and c.none or c.black },
+    NeoTreeWinSeparator = { fg = c.gutter.muted_fg, bg = options.transparent and c.none or c.black },
     NeoTreeTabActive = { bg = c.window.bg },
     NeoTreeTabInactive = { bg = c.black },
     NeoTreeTabSeparatorActive = { bg = c.window.bg, fg = c.window.bg },
@@ -335,59 +331,20 @@ function M.setup()
     WhichKeyGroup = { fg = c.orange },
     WhichKeyDesc = { fg = c.blue },
     WhichKeySeperator = { fg = c.window.muted_fg },
-    WhichKeyFloat = { bg = c.bg_float },
+    WhichKeyFloat = { bg = c.float_bg },
 
     healthError = { fg = c.error },
     healthSuccess = { fg = c.green },
     healthWarning = { fg = c.warning },
 
     BufferLineIndicatorSelected = { fg = c.blue },
-    -- BufferCurrentIcon = { bg = c.white, fg = c.},
-    -- BufferCurrentINFO = { bg = c.window.bg1, fg = c.info },
-    -- BufferCurrentWARN = { bg = c.window.bg1, fg = c.warning },
-    -- BufferCurrentIndex = { bg = c.window.bg1, fg = c.info },
-    -- BufferCurrentMod = { bg = c.window.bg1, fg = c.warning },
-    -- BufferCurrentSign = { bg = c.window.bg1, fg = c.info },
-    -- BufferCurrentTarget = { bg = c.window.bg1, fg = c.red },
-    -- BufferAlternate = { bg = c.window.bg1, fg = c.white },
-    -- BufferAlternateERROR = { bg = c.window.bg1, fg = c.error },
-    -- BufferAlternateHINT = { bg = c.window.bg1, fg = c.hint },
-    -- BufferAlternateIcon = { bg = c.window.bg1, fg = c. },
-    -- BufferAlternateIndex = { bg = c.window.bg1, fg = c.info },
-    -- BufferAlternateINFO = { bg = c.window.bg1, fg = c.info },
-    -- BufferAlternateMod = { bg = c.window.bg1, fg = c.warning },
-    -- BufferAlternateSign = { bg = c.window.bg1, fg = c.info },
-    -- BufferAlternateTarget = { bg = c.window.bg1, fg = c.red },
-    -- BufferAlternateWARN = { bg = c.window.bg1, fg = c.warning },
-    -- BufferVisible = { bg = c.window.bg, fg = c.white },
-    -- BufferVisibleERROR = { bg = c.window.bg, fg = c.error },
-    -- BufferVisibleHINT = { bg = c.window.bg, fg = c.hint },
-    -- BufferVisibleIcon = { bg = c.window.bg, fg = c. },
-    -- BufferVisibleINFO = { bg = c.window.bg, fg = c.info },
-    -- BufferVisibleWARN = { bg = c.window.bg, fg = c.warning },
-    -- BufferVisibleIndex = { bg = c.window.bg, fg = c.info },
-    -- BufferVisibleMod = { bg = c.window.bg, fg = c.warning },
-    -- BufferVisibleSign = { bg = c.window.bg, fg = c.info },
-    -- BufferVisibleTarget = { bg = c.window.bg, fg = c.red },
-    -- BufferInactive = { bg = c.window.bg, fg = c.window.muted_fg },
-    -- BufferInactiveERROR = { bg = c.window.bg, fg = util.darken(c.error, 0.7) },
-    -- BufferInactiveHINT = { bg = c.window.bg, fg = util.darken(c.hint, 0.7) },
-    -- BufferInactiveIcon = { bg = c.window.bg, fg = util.darken(c., 0.7) },
-    -- BufferInactiveINFO = { bg = c.window.bg, fg = util.darken(c.info, 0.7) },
-    -- BufferInactiveWARN = { bg = c.window.bg, fg = util.darken(c.warning, 0.7) },
-    -- BufferInactiveIndex = { bg = c.window.bg, fg = c.window.muted_fg },
-    -- BufferInactiveMod = { bg = c.window.bg, fg = util.darken(c.warning, 0.7) },
-    -- BufferInactiveSign = { bg = c.window.bg, fg = c.border_highlight },
-    -- BufferInactiveTarget = { bg = c.window.bg, fg = c.red },
-    -- BufferOffset = { bg = c.window.bg, fg = c.window.muted_fg },
-    -- BufferTabpageFill = { bg = c.window.bg, fg = c.window.muted_fg },
-    -- BufferTabpages = { bg = c.window.bg, fg = c.none },
+    BufferLineFill = { bg = c.window.bg },
 
     TSNodeKey = { fg = c.magenta, bold = true },
     TSNodeUnmatched = { fg = c.window.muted_fg },
 
     CmpDocumentation = { fg = c.white, bg = c.window.bg },
-    CmpDocumentationBorder = { fg = c.border_highlight, bg = c.window.bg },
+    CmpDocumentationBorder = { fg = c.window.bg, bg = c.window.bg },
 
     CmpItemAbbr = { fg = c.white, bg = c.none },
     CmpItemAbbrDeprecated = { fg = c.white, bg = c.none, strikethrough = true },
@@ -458,13 +415,13 @@ function M.setup()
     NavicSeparator = { fg = c.window.muted_fg, bg = c.none },
 
     IndentBlanklineChar = { fg = c.window.bg, nocombine = true },
+    IndentBlanklineSpaceChar = { fg = c.black, nocombine = true },
     IndentBlanklineContextChar = { fg = c.magenta, nocombine = true },
 
-    -- Lazy
+    LazyButtonActive = { bg = c.blue },
     LazyProgressDone = { bold = true, fg = c.magenta },
     LazyProgressTodo = { bold = true, fg = c.white },
 
-    -- Notify
     NotifyERRORBorder = { fg = util.darken(c.error, 0.3), bg = options.transparent and c.none or c.black },
     NotifyWARNBorder = { fg = util.darken(c.warning, 0.3), bg = options.transparent and c.none or c.black },
     NotifyINFOBorder = { fg = util.darken(c.info, 0.3), bg = options.transparent and c.none or c.black },

@@ -30,8 +30,8 @@ dusk.replace = {
 }
 
 dusk.terminal = {
-  a = {bg = colors.green, fg = colors.black },
-  b = {bg = colors.window.bg1, fg = colors.white },
+  a = { bg = colors.green, fg = colors.black },
+  b = { bg = colors.window.bg1, fg = colors.white },
 }
 
 dusk.inactive = {

@@ -99,17 +99,12 @@ function M.setup(opts)
   }
 
   colors.git.ignore = util.lighten(colors.black, 0.25)
-  colors.border_highlight = util.darken(colors.blue, 0.8)
-  colors.border = util.darken(colors.black, 0.8, "#000000")
+  colors.border_highlight = colors.window.bg2
+  colors.border = colors.window.bg2
 
   -- Sidebar and Floats are configurable
-  colors.bg_sidebar = config.options.styles.sidebars == "transparent" and colors.none or config.options.styles.sidebars == "dark" and colors.window.bg
-
-  colors.bg_float = config.options.styles.floats == "transparent" and colors.none or config.options.styles.floats == "dark" and colors.window.bg1
-
-  colors.bg_visual = util.darken(colors.blue, 0.4)
-  colors.bg_search = colors.yellow
-  colors.fg_float = colors.white
+  colors.sidebar_bg = config.options.styles.sidebars == "transparent" and colors.none or config.options.styles.sidebars == "dark" and colors.window.bg
+  colors.float_bg = config.options.styles.floats == "transparent" and colors.none or config.options.styles.floats == "dark" and colors.window.bg
 
   colors.error = colors.red
   colors.warning = colors.yellow
