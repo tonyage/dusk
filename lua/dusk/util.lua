@@ -82,7 +82,7 @@ function M.autocmds(config)
 
   vim.cmd([[  autocmd FileType ]] .. table.concat(config.sidebars, ",") .. [[ setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB]])
   if vim.tbl_contains(config.sidebars, "terminal") then
-    vim.cmd([[  autocmd TermOpen * setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB]])
+    vim.cmd([[  autocmd TermOpen * setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,FloatBorder:TerminalBorder]])
   end
   vim.cmd([[augroup end]])
 end
