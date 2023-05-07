@@ -272,15 +272,6 @@ function M.setup()
     diffLine = { fg = c.window.muted_fg },
     diffIndexLine = { fg = c.magenta },
 
-    -- Neogit
-    -- NeogitBranch = { fg = c.magenta },
-    -- NeogitRemote = { fg = c.magenta },
-    -- NeogitHunkHeader = { bg = c.window.bg, fg = c.white },
-    -- NeogitHunkHeaderHighlight = { bg = c.white, fg = c.blue },
-    -- NeogitDiffContextHighlight = { bg = util.darken(c.white, 0.5), fg = c.white_dark },
-    -- NeogitDiffDeleteHighlight = { fg = c.git.delete, bg = c.diff.delete },
-    -- NeogitDiffAddHighlight = { fg = c.git.add, bg = c.diff.add },
-
     -- Neotest
     -- NeotestPassed = { fg = c.green },
     -- NeotestRunning = { fg = c.yellow },
@@ -315,7 +306,7 @@ function M.setup()
     NeoTreeFloatBorder = { fg = c.window.bg1, bg = c.window.bg1 },
     NeoTreeEndOfBuffer = { fg = c.window.bg, bg = options.transparent and c.none or c.window.bg },
     NeoTreeDimText = { fg = c.window.muted_fg },
-    NeoTreeWinSeparator = { fg = c.gutter.muted_fg, bg = options.transparent and c.none or c.black },
+    NeoTreeWinSeparator = { fg = c.black, bg = options.transparent and c.none or c.black },
     NeoTreeTabActive = { bg = c.window.bg },
     NeoTreeTabInactive = { bg = c.black },
     NeoTreeTabSeparatorActive = { bg = c.window.bg, fg = c.window.bg },
