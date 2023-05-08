@@ -72,15 +72,15 @@ function M.setup()
     SpellCap = { sp = c.warning, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     SpellLocal = { sp = c.info, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare = { sp = c.hint, undercurl = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-    StatusLine = { fg = c.white, bg = c.statusline }, -- status line of current window
+    StatusLine = { fg = c.white, bg = c.window.bg }, -- status line of current window
     StatusLineNC = { fg = c.gutter.muted_fg, bg = c.window.bg }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     TabLine = { bg = c.window.bg, fg = c.white }, -- tab pages line, not active tab page label
     TabLineFill = { bg = c.window.bg, fg = c.window.bg }, -- tab pages line, where there are no labels
     TabLineSel = { fg = c.black, bg = c.blue }, -- tab pages line, active tab page label
     TerminalBorder = { fg = c.window.bg2, bg = c.black },
     Title = { fg = c.cyan, bold = true }, -- titles for output from ":set all", ":autocmd" etc.
-    Visual = { bg = c.window.bg }, -- Visual mode selection
-    VisualNOS = { bg = c.window.bg }, -- Visual mode selection when vim is "Not Owning the Selection".
+    Visual = { bg = c.window.bg2 }, -- Visual mode selection
+    VisualNOS = { bg = c.window.bg2 }, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg = { fg = c.warning }, -- warning messages
     Whitespace = { fg = c.window.bg }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
     WildMenu = { bg = c.blue }, -- current match in 'wildmenu' completion
