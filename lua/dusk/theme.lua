@@ -39,8 +39,7 @@ function M.setup()
     DiffText = { bg = c.diff.text }, -- diff mode: Changed text within a changed line |diff.txt|
     EndOfBuffer = { fg = c.window.bg2 }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
     ErrorMsg = { fg = c.error }, -- error messages on the command line
-    VertSplit = { fg = c.border }, -- the column separating vertically split windows
-    WinSeparator = { fg = c.border, bold = true }, -- the column separating vertically split windows
+    WinSeparator = { fg = c.window.bg }, -- the column separating vertically split windows
     Folded = { fg = c.blue, bg = c.white }, -- line used for closed folds
     FoldColumn = { bg = options.transparent and c.none or c.black, fg = c.window.muted_fg }, -- 'foldcolumn'
     SignColumn = { bg = options.transparent and c.none or c.black, fg = c.white }, -- column where |signs| are displayed
@@ -56,8 +55,8 @@ function M.setup()
     Normal = { fg = c.white, bg = options.transparent and c.none or c.black }, -- normal text
     NormalNC = { fg = c.white, bg = options.transparent and c.none or options.dim_inactive and c.black or c.black }, -- normal text in non-current windows
     NormalSB = { fg = c.white, bg = c.black }, -- normal text in sidebar
-    NormalFloat = { fg = c.white, bg = c.window.bg }, -- Normal text in floating windows.
-    FloatBorder = { fg = c.window.bg2, bg = c.window.bg },
+    NormalFloat = { fg = c.white, bg = options.transparent and c.none or c.window.bg }, -- Normal text in floating windows.
+    FloatBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.none },
     Pmenu = { bg = c.window.bg, fg = c.white }, -- Popup menu: normal item.
     PmenuSel = { bg = c.window.bg1 }, -- Popup menu: selected item.
     PmenuSbar = { bg = util.lighten(c.window.bg, 0.95) }, -- Popup menu: scrollbar.
@@ -77,7 +76,7 @@ function M.setup()
     TabLine = { bg = c.window.bg, fg = c.white }, -- tab pages line, not active tab page label
     TabLineFill = { bg = c.window.bg, fg = c.window.bg }, -- tab pages line, where there are no labels
     TabLineSel = { fg = c.black, bg = c.blue }, -- tab pages line, active tab page label
-    TerminalBorder = { fg = c.window.bg2, bg = c.black },
+    TerminalBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.black },
     Title = { fg = c.cyan, bold = true }, -- titles for output from ":set all", ":autocmd" etc.
     Visual = { bg = c.window.bg2 }, -- Visual mode selection
     VisualNOS = { bg = c.window.bg2 }, -- Visual mode selection when vim is "Not Owning the Selection".
@@ -174,10 +173,15 @@ function M.setup()
     DiagnosticInfo = { fg = c.info }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticHint = { fg = c.hint }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 
-    DiagnosticVirtualTextError = { bg = util.darken(c.error, 0.1), fg = c.error }, -- Used for "Error" diagnostic virtual text
-    DiagnosticVirtualTextWarn = { bg = util.darken(c.warning, 0.1), fg = c.warning }, -- Used for "Warning" diagnostic virtual text
-    DiagnosticVirtualTextInfo = { bg = util.darken(c.info, 0.1), fg = c.info }, -- Used for "Information" diagnostic virtual text
-    DiagnosticVirtualTextHint = { bg = util.darken(c.hint, 0.1), fg = c.hint }, -- Used for "Hint" diagnostic virtual text
+    -- DiagnosticVirtualTextError = { bg = util.darken(c.error, 0.1), fg = c.error }, -- Used for "Error" diagnostic virtual text
+    -- DiagnosticVirtualTextWarn = { bg = util.darken(c.warning, 0.1), fg = c.warning }, -- Used for "Warning" diagnostic virtual text
+    -- DiagnosticVirtualTextInfo = { bg = util.darken(c.info, 0.1), fg = c.info }, -- Used for "Information" diagnostic virtual text
+    -- DiagnosticVirtualTextHint = { bg = util.darken(c.hint, 0.1), fg = c.hint }, -- Used for "Hint" diagnostic virtual text
+
+    DiagnosticVirtualTextError = { bg = c.none, fg = c.error }, -- Used for "Error" diagnostic virtual text
+    DiagnosticVirtualTextWarn = { bg = c.none, fg = c.warning }, -- Used for "Warning" diagnostic virtual text
+    DiagnosticVirtualTextInfo = { bg = c.none, fg = c.info }, -- Used for "Information" diagnostic virtual text
+    DiagnosticVirtualTextHint = { bg = c.none, fg = c.hint }, -- Used for "Hint" diagnostic virtual text
 
     DiagnosticUnderlineError = { undercurl = true, sp = c.error }, -- Used to underline "Error" diagnostics
     DiagnosticUnderlineWarn = { undercurl = true, sp = c.warning }, -- Used to underline "Warning" diagnostics
@@ -186,7 +190,7 @@ function M.setup()
 
     LspSignatureActiveParameter = { bg = util.darken(c.blue, 0.4), bold = true },
     LspCodeLens = { fg = c.window.muted_fg },
-    LspInfoBorder = { fg = c.window.bg, bg = c.window.bg },
+    LspInfoBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.window.bg },
 
     -- TODO:
     -- [""] = { },
@@ -295,23 +299,32 @@ function M.setup()
     GitSignsChange = { fg = c.git.change }, -- diff mode: Changed line |diff.txt|
     GitSignsDelete = { fg = c.git.delete }, -- diff mode: Deleted line |diff.txt|
 
-    TelescopeBorder = { bg = c.window.bg, fg = c.gutter.muted_fg },
-    TelescopeNormal = { bg = c.window.bg },
-    TelescopeTitle = { bg = c.window.bg, bold = true },
-    TelescopeSelection = { bg = c.window.bg1 },
-    TelescopeSelectionCaret = { fg = c.yellow },
+    -- TelescopeBorder = { bg = c.window.bg, fg = c.gutter.muted_fg },
+    -- TelescopeNormal = { bg = c.black },
+    -- TelescopeTitle = { bg = c.window.bg, bold = true },
+    -- TelescopeSelection = { bg = c.window.bg1 },
+    -- TelescopeSelectionCaret = { fg = c.yellow },
 
-    NeoTreeNormal = { fg = c.white, bg = options.transparent and c.none or c.window.bg },
-    NeoTreeNormalNC = { fg = c.white, bg = options.transparent and c.none or c.window.bg },
-    NeoTreeFloatBorder = { fg = c.window.bg1, bg = c.window.bg1 },
-    NeoTreeEndOfBuffer = { fg = c.window.bg, bg = options.transparent and c.none or c.window.bg },
+    TelescopeBorder = { bg = options.transparent and c.none or c.black, fg = c.window.bg2 },
+    TelescopePromptPrefix = { fg = c.white },
+    TelescopeMatching = { fg = c.blue, bold = true, bg = c.none },
+    TelescopeMultiIcon = { fg = c.window.bg2 },
+    TelescopeNormal = { bg = options.transparent and c.none or c.black },
+    TelescopeTitle = { bg = options.transparent and c.none or c.black, bold = true },
+    TelescopeSelection = { bg = c.window.bg, bg = c.window.bg },
+    TelescopeSelectionCaret = { fg = c.green, bold = true },
+
     NeoTreeDimText = { fg = c.window.muted_fg },
-    NeoTreeWinSeparator = { fg = c.black, bg = options.transparent and c.none or c.black },
-    NeoTreeTabActive = { bg = c.window.bg },
-    NeoTreeTabInactive = { bg = c.black },
-    NeoTreeTabSeparatorActive = { bg = c.window.bg, fg = c.window.bg },
-    NeoTreeTabSeparatorInactive = { bg = c.black, fg = c.black },
+    NeoTreeFloatBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.none },
+    NeoTreeFloatTitle = { fg = c.white, bg = options.transparent and c.none or c.none },
+    NeoTreeNormal = { fg = c.white, bg = c.window.bg },
+    NeoTreeNormalNC = { fg = c.white, bg = c.window.bg },
     NeoTreeSymbolicLinkTarget = { fg = colors.cyan },
+    NeoTreeTabActive = { bg = c.window.bg },
+    NeoTreeTabInactive = { bg = c.window.bg1 },
+    NeoTreeTabSeparatorActive = { bg = c.window.bg, fg = c.window.bg },
+    NeoTreeTabSeparatorInactive = { bg = c.window.bg1, fg = c.window.bg },
+    NeoTreeWinSeparator = { fg = c.black, bg = options.transparent and c.none or c.black },
 
     AlphaShortcut = { fg = c.orange },
     AlphaHeader = { fg = c.green },
@@ -329,7 +342,6 @@ function M.setup()
     healthSuccess = { fg = c.green },
     healthWarning = { fg = c.warning },
 
-    BufferLineIndicatorSelected = { fg = c.blue },
     BufferLineFill = { bg = c.window.bg },
 
     TSNodeKey = { fg = c.magenta, bold = true },
@@ -410,9 +422,11 @@ function M.setup()
     IndentBlanklineSpaceChar = { fg = c.black, nocombine = true },
     IndentBlanklineContextChar = { fg = c.magenta, nocombine = true },
 
-    LazyButtonActive = { bg = c.blue },
-    LazyProgressDone = { bold = true, fg = c.magenta },
-    LazyProgressTodo = { bold = true, fg = c.white },
+    LazyButton = { bg = c.none, fg = c.white },
+    LazyButtonActive = { bg = c.window.bg, fg = c.white },
+    LazyNormal = { bg = c.none, fg = c.white },
+    LazyProgressDone = { bold = true, fg = c.green },
+    LazyProgressTodo = { bold = true, fg = c.orange },
 
     NotifyERRORBorder = { fg = util.darken(c.error, 0.3), bg = options.transparent and c.none or c.black },
     NotifyWARNBorder = { fg = util.darken(c.warning, 0.3), bg = options.transparent and c.none or c.black },
@@ -513,6 +527,11 @@ function M.setup()
     NoiceCompletionItemKindProperty = { fg = c.red, bg = c.none },
     NoiceCompletionItemKindField = { fg = c.red, bg = c.none },
     NoiceCompletionItemKindOperator = { fg = c.white, bg = c.none },
+
+    NoiceCmdlinePopupTitle = { fg = c.white, bg = options.transparent and c.none or c.black },
+    NoiceCmdlineIcon = { fg = c.window.bg2, bg = options.transparent and c.none or c.black },
+    NoiceCmdlinePopupBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.black },
+    NoicePopupBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.black },
 
     -- TreesitterContext = { bg = util.darken(c.white, 0.8) },
     -- TreesitterContext = { bg = util.darken(c.bg_visual, 0.4) },
