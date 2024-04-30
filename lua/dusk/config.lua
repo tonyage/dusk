@@ -11,11 +11,22 @@ local defaults = {
   styles = {
     -- Style to be applied to different syntax groups
     -- Value is any valid attr-list value for `:help nvim_set_hl`
+    bold = { bold = true },
+    bold_italic = { bold = true, italic = true },
+    conditionals = {},
     comments = { italic = true },
-    keywords = { italic = true },
     functions = { bold = true },
-    variables = {},
+    italic = { italic = true },
+    keywords = { italic = true, bold = true },
+    links = { underline = true, italic = true },
+    loops = {},
+    macros = { bold = true, italic = true },
+    numbers = {},
+    operators = {},
+    properties = {},
     strings = {},
+    types = {},
+    variables = {},
     -- Background styles. Can be "dark", "transparent" or "normal"
     sidebars = "dark", -- style for sidebars, see below
     floats = "dark", -- style for floating windows

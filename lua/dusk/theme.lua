@@ -92,39 +92,39 @@ function M.setup()
 
     Constant = { fg = c.orange }, -- (preferred) any constant
     String = { fg = c.green, style = options.styles.string }, --   a string constant: "this is a string"
-    Character = { fg = c.orange }, --  a character constant: 'c', '\n'
-    -- Number        = { }, --   a number constant: 234, 0xff
-    -- Boolean       = { }, --  a boolean constant: TRUE, false
-    -- Float         = { }, --    a floating point constant: 2.3e10
+    Character = { fg = c.cyan }, --  a character constant: 'c', '\n'
+    Number = { fg = c.orange }, --   a number constant: 234, 0xff
+    Boolean = { fg = c.orange }, --  a boolean constant: TRUE, false
+    Float = { link = "Number" }, --    a floating point constant: 2.3e10
 
-    Identifier = { fg = c.red, style = options.styles.variables }, -- (preferred) any variable name
+    Identifier = { fg = c.yellow, style = options.styles.italic }, -- (preferred) any variable name
     Function = { fg = c.blue, style = options.styles.functions }, -- function name (also: methods for classes)
 
-    Statement = { fg = c.magenta }, -- (preferred) any statement
     -- Conditional   = { }, --  if, then, else, endif, switch, etc.
+    Statement = { fg = c.magenta }, -- (preferred) any statement
     -- Repeat        = { }, --   for, do, while, etc.
     -- Label         = { }, --    case, default, etc.
     Operator = { fg = c.white }, -- "sizeof", "+", "*", etc.
     Keyword = { fg = c.magenta, style = options.styles.keywords }, --  any other keyword
     -- Exception     = { }, --  try, catch, throw
 
-    PreProc = { fg = c.magenta }, -- (preferred) generic Preprocessor
-    -- Include       = { }, --  preprocessor #include
-    -- Define        = { }, --   preprocessor #define
-    -- Macro         = { }, --    same as Define
+    PreProc = { fg = c.red, style = options.styles.keywords }, -- (preferred) generic Preprocessor
+    Include = { link = "Keyword" }, --  preprocessor #include
+    Define = { fg = c.yellow, style = options.styles.macros }, --   preprocessor #define
+    Macro = { fg = c.cyan, style = options.styles.macros }, --    same as Define
     -- PreCondit     = { }, --  preprocessor #if, #else, #endif, etc.
 
     Type = { fg = c.yellow }, -- (preferred) int, long, char, etc.
-    -- StorageClass  = { }, -- static, register, volatile, etc.
-    -- Structure     = { }, --  struct, union, enum, etc.
-    -- Typedef       = { }, --  A typedef
+    StorageClass = { fg = c.yellow }, -- static, register, volatile, etc.
+    Structure = { fg = c.yellow }, --  struct, union, enum, etc.
+    Typedef = { link = "Type" }, --  A typedef
 
-    Special = { fg = c.red }, -- (preferred) any special symbol
-    -- SpecialChar   = { }, --  special character in a constant
-    -- Tag           = { }, --    you can use CTRL-] on this
-    -- Delimiter     = { }, --  character that needs attention
-    -- SpecialComment= { }, -- special things inside a comment
-    -- Debug         = { }, --    debugging statements
+    Special = { fg = c.blue }, -- (preferred) any special symbol
+    SpecialChar = { fg = c.cyan }, --  special character in a constant
+    Tag = { fg = c.pink, style = options.styles.bold }, --    you can use CTRL-] on this
+    Delimiter = { fg = c.cyan }, --  character that needs attention
+    SpecialComment = { link = "Special" }, -- special things inside a comment
+    Debug = { link = "Special" }, --    debugging statements
 
     Underlined = { underline = true }, -- (preferred) text that stands out, HTML links
     Bold = { bold = true },
@@ -133,27 +133,28 @@ function M.setup()
     -- ("Ignore", below, may be invisible...)
     -- Ignore = { }, -- (preferred) left blank, hidden  |hl-Ignore|
 
+    -- TODO(FIXME)
     Error = { fg = c.error }, -- (preferred) any erroneous construct
     Todo = { bg = c.yellow, fg = c.black }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
-    qfLineNr = { fg = c.gutter.focus_fg },
     qfFileName = { fg = c.blue },
+    qfLineNr = { fg = c.gutter.focus_fg },
 
     htmlH1 = { fg = c.magenta, bold = true },
     htmlH2 = { fg = c.blue, bold = true },
 
-    -- mkdHeading = { fg = c.orange, bold = true },
-    -- mkdCode = { bg = c.window.bg, fg = c.white },
+    mkdHeading = { fg = c.orange, style = options.styles.bold },
+    mkdCode = { bg = c.window.bg, fg = c.white },
     mkdCodeDelimiter = { bg = c.black, fg = c.white },
-    mkdCodeStart = { fg = c.cyan, bold = true },
-    mkdCodeEnd = { fg = c.cyan, bold = true },
-    -- mkdLink = { fg = c.blue, underline = true },
+    mkdCodeStart = { fg = c.cyan, style = options.styles.bold },
+    mkdCodeEnd = { fg = c.cyan, style = options.styles.bold },
+    mkdLink = { fg = c.blue, underline = true },
 
-    markdownHeadingDelimiter = { fg = c.orange, bold = true },
+    markdownHeadingDelimiter = { fg = c.orange, style = options.styles.bold },
     markdownCode = { fg = c.cyan },
     markdownCodeBlock = { fg = c.cyan },
-    markdownH1 = { fg = c.magenta, bold = true },
-    markdownH2 = { fg = c.blue, bold = true },
+    markdownH1 = { fg = c.magenta, style = options.styles.bold },
+    markdownH2 = { fg = c.blue, style = options.styles.bold },
     markdownLinkText = { fg = c.blue, underline = true },
 
     ["helpCommand"] = { bg = c.black, fg = c.blue },
@@ -192,42 +193,51 @@ function M.setup()
     LspCodeLens = { fg = c.window.muted_fg },
     LspInfoBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.window.bg },
 
-    -- TODO:
-    -- [""] = { },
+    -- TODO: tree-sitter highlights
     ["@operator"] = { fg = c.white }, -- For any operator: `+`, but also `->` and `*` in C.
     ["@punctuation.delimiter"] = { fg = c.white }, -- For delimiters ie: `.`
     ["@punctuation.bracket"] = { fg = c.white }, -- For brackets and parens.
-    ["@punctuation.special"] = { fg = c.red }, -- For special punctutation that does not fall in the catagories before.
-    ["@punctuation.special.markdown"] = { fg = c.orange, bold = true },
+    ["@punctuation.special"] = { fg = c.yellow }, -- For special punctutation that does not fall in the catagories before.
+    ["@punctuation.special.markdown"] = { fg = c.orange, style = options.styles.bold_italic },
 
+    ["@constant"] = { link = "Constant" },
+    ["@constant.builtin"] = { fg = c.orange, style = options.styles.keywords },
+    ["@constant.macro"] = { link = "Macro" },
+
+    ["@string"] = { link = "String" },
     ["@string.documentation"] = { fg = c.yellow },
     ["@string.regex"] = { fg = c.cyan },
-    ["@string.escape"] = { fg = c.red }, -- For escape characters within a string.
+    ["@string.escape"] = { fg = c.cyan }, -- For escape characters within a string.
+    ["@string.special"] = { link = "Special" },
+    ["@string.special.url"] = { fg = c.cyan, style = options.styles.links },
 
-    ["@constructor"] = { fg = c.yellow, bold = true }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
+    ["@character"] = { link = "Character" },
+    ["@character.special"] = { link = "SpecialChar" },
+
+    ["@constructor"] = { fg = c.yellow }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
     ["@parameter"] = { fg = c.orange }, -- For parameters of a function.
-    ["@functions"] = { fg = c.blue },
-    ["@functions.builtin"] = { fg = c.blue, italic = true },
+    ["@functions"] = { fg = c.blue, style = options.styles.bold },
+    ["@functions.builtin"] = { fg = c.blue, style = options.styles.keywords },
+    ["@functions.macro"] = { fg = c.cyan, style = options.styles.keywords },
 
-    -- TODO:
-    -- ["@keyword.coroutine"] = { }, -- For keywords related to coroutines.
-    ["@keyword"] = { fg = c.magenta, style = options.styles.keywords }, -- For keywords that don't fall in previous categories.
+    ["@keyword"] = { link = "Keyword" }, -- For keywords that don't fall in previous categories.
+    ["@keyword.coroutine"] = { link = "Keyword" }, -- For keywords related to coroutines.
+    ["@keyword.import"] = { link = "Keyword" }, -- For keywords related to imports (#include in C, extern crate in rust, require in Lua)
     ["@keyword.function"] = { fg = c.magenta, style = options.styles.functions }, -- For keywords used to define a fuction.
-    ["@keyword.operator"] = { fg = c.magenta, style = options.styles.keywords },
-
-    ["@label"] = { fg = c.blue }, -- For labels: `label:` in C and `:label:` in Lua.
+    ["@keyword.operator"] = { link = "Operator" },
 
     ["@field"] = { fg = c.red }, -- For fields.
     ["@property"] = { fg = c.red },
 
-    ["@variable"] = { fg = c.white, style = options.styles.variables }, -- Any variable name that does not have another highlight.
-    ["@variable.builtin"] = { fg = c.red, italic = true }, -- Variable names that are defined by the languages, like `this` or `self`.
+    ["@tag"] = { fg = c.red },
+    ["@tag.attribute"] = { fg = c.orange, style = options.styles.italic },
+    ["@tag.delimiter"] = { fg = c.white },
 
     ["@text.literal.markdown"] = { link = "Normal" },
     ["@text.literal.markdown_inline"] = { bg = c.black, fg = c.blue },
     ["@text.reference"] = { fg = c.cyan },
 
-    ["@text.todo.unchecked"] = { fg = c.blue }, -- For brackets and parens.
+    ["@text.todo.unchecked"] = { fg = c.orange }, -- For brackets and parens.
     ["@text.todo.checked"] = { fg = c.green }, -- For brackets and parens.
     ["@text.warning"] = { fg = c.black, bg = c.warning },
     ["@text.danger"] = { fg = c.black, bg = c.error },
@@ -235,7 +245,19 @@ function M.setup()
     ["@text.diff.add"] = { link = "DiffAdd" },
     ["@text.diff.delete"] = { link = "DiffDelete" },
 
+    ["@type"] = { link = "Type" },
+    ["@type.builtin"] = { link = "Type", style = options.styles.italic },
+    ["@type.definition"] = { link = "Type" },
+
+    ["@variable"] = { fg = c.white, style = options.styles.variables }, -- Any variable name that does not have another highlight.
+    ["@variable.builtin"] = { fg = c.red, style = options.styles.keywords }, -- Variable names that are defined by the languages, like `this` or `self`.
+    ["@variable.parameter"] = { fg = c.orange },
+    ["@variable.member"] = { fg = c.red }, -- Variable names that are defined by the languages, like `this` or `self`.
+
     ["@namespace"] = { link = "Include" },
+
+    ["@function.builtin.bash"] = { link = "Function" },
+    ["@property.toml"] = { fg = c.orange },
 
     -- LSP Semantic Token Groups
     ["@lsp.type.comment"] = { link = "@comment" },
@@ -533,8 +555,9 @@ function M.setup()
     NoiceCmdlinePopupBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.black },
     NoicePopupBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.black },
 
-    -- TreesitterContext = { bg = util.darken(c.white, 0.8) },
-    -- TreesitterContext = { bg = util.darken(c.bg_visual, 0.4) },
+    TreeSitterContext = { bg = c.black, style = options.styles.links },
+    TreesitterContextBottom = { bg = c.black, style = options.styles.links },
+    TreesitterContextLineNumber = { fg = c.cyan },
   }
 
   if not vim.diagnostic then
