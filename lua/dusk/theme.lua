@@ -83,6 +83,8 @@ function M.setup()
     WarningMsg = { fg = c.warning }, -- warning messages
     Whitespace = { fg = c.window.bg }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
     WildMenu = { bg = c.blue }, -- current match in 'wildmenu' completion
+    WinBar = { bg = options.transparent and c.none or c.black },
+    WinBarNC = { bg = options.transparent and c.none or c.black },
 
     -- These groups are not listed as default vim groups,
     -- but they are defacto standard group names for syntax highlighting.
@@ -604,5 +606,4 @@ function M.setup()
 
   return theme
 end
-
 return M

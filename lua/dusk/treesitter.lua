@@ -375,5 +375,4 @@ M.defaults = {
     link = "Special",
   },
 }
-
 return M
