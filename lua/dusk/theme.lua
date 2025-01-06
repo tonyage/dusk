@@ -14,6 +14,7 @@ local M = {}
 function M.setup()
   local config = require("dusk.config")
   local options = config.options
+
   ---@class Theme
   ---@field highlights Highlights
   local theme = {
@@ -371,6 +372,16 @@ function M.setup()
     TSNodeKey = { fg = c.magenta, bold = true },
     TSNodeUnmatched = { fg = c.window.muted_fg },
 
+    -- blink.cmp
+    BlinkCmpDoc = { fg = c.white, bg = c.float_bg },
+    BlinkCmpDocBorder = { fg = c.border_highlight, bg = c.float_bg },
+    BlinkCmpGhostText = { fg = c.black },
+    BlinkCmpKindCopilot = { fg = c.cyan, bg = c.none },
+    BlinkCmpLabel = { fg = c.white },
+    BlinkCmpLabelDeprecated = { fg = c.window.muted_fg, bg = c.none, strikethrough = true },
+    BlinkCmpLabelMatch = { fg = c.blue, bg = c.none },
+
+    -- nvim-cmp
     CmpDocumentation = { fg = c.white, bg = c.window.bg },
     CmpDocumentationBorder = { fg = c.window.bg, bg = c.window.bg },
 
