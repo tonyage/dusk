@@ -301,34 +301,9 @@ function M.setup()
     diffLine = { fg = c.window.muted_fg },
     diffIndexLine = { fg = c.magenta },
 
-    -- Neotest
-    -- NeotestPassed = { fg = c.green },
-    -- NeotestRunning = { fg = c.yellow },
-    -- NeotestFailed = { fg = c.red },
-    -- NeotestSkipped = { fg = c.blue },
-    -- NeotestTest = { fg = c.white },
-    -- NeotestNamespace = { fg = c.green },
-    -- NeotestFocused = { fg = c.yellow },
-    -- NeotestFile = { fg = c.cyan },
-    -- NeotestDir = { fg = c.blue },
-    -- NeotestBorder = { fg = c.blue },
-    -- NeotestIndent = { fg = c.white },
-    -- NeotestExpandMarker = { fg = c.white },
-    -- NeotestAdapterName = { fg = c.magenta, bold = true },
-    -- NeotestWinSelect = { fg = c.blue },
-    -- NeotestMarked = { fg = c.blue },
-    -- NeotestTarget = { fg = c.blue },
-    --[[ NeotestUnknown = {}, ]]
-
     GitSignsAdd = { fg = c.git.add }, -- diff mode: Added line |diff.txt|
     GitSignsChange = { fg = c.git.change }, -- diff mode: Changed line |diff.txt|
     GitSignsDelete = { fg = c.git.delete }, -- diff mode: Deleted line |diff.txt|
-
-    -- TelescopeBorder = { bg = c.window.bg, fg = c.gutter.muted_fg },
-    -- TelescopeNormal = { bg = c.black },
-    -- TelescopeTitle = { bg = c.window.bg, bold = true },
-    -- TelescopeSelection = { bg = c.window.bg1 },
-    -- TelescopeSelectionCaret = { fg = c.yellow },
 
     TelescopeBorder = { bg = options.transparent and c.none or c.black, fg = c.window.bg2 },
     TelescopePromptPrefix = { fg = c.white },
