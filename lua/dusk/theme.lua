@@ -171,16 +171,15 @@ function M.setup()
     LspReferenceText = { bg = c.window.bg2 }, -- used for highlighting "text" references
     LspReferenceRead = { bg = c.window.bg2 }, -- used for highlighting "read" references
     LspReferenceWrite = { bg = c.window.bg2 }, -- used for highlighting "write" references
+    LspInlayHint = { fg = c.yellow },
+    LspSignatureActiveParameter = { bg = util.darken(c.blue, 0.4), bold = true },
+    LspCodeLens = { fg = c.yellow },
+    LspInfoBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.window.bg },
 
     DiagnosticError = { fg = c.error }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticWarn = { fg = c.warning }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticInfo = { fg = c.info }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticHint = { fg = c.hint }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-
-    -- DiagnosticVirtualTextError = { bg = util.darken(c.error, 0.1), fg = c.error }, -- Used for "Error" diagnostic virtual text
-    -- DiagnosticVirtualTextWarn = { bg = util.darken(c.warning, 0.1), fg = c.warning }, -- Used for "Warning" diagnostic virtual text
-    -- DiagnosticVirtualTextInfo = { bg = util.darken(c.info, 0.1), fg = c.info }, -- Used for "Information" diagnostic virtual text
-    -- DiagnosticVirtualTextHint = { bg = util.darken(c.hint, 0.1), fg = c.hint }, -- Used for "Hint" diagnostic virtual text
 
     DiagnosticVirtualTextError = { bg = c.none, fg = c.error }, -- Used for "Error" diagnostic virtual text
     DiagnosticVirtualTextWarn = { bg = c.none, fg = c.warning }, -- Used for "Warning" diagnostic virtual text
@@ -191,10 +190,6 @@ function M.setup()
     DiagnosticUnderlineWarn = { undercurl = true, sp = c.warning }, -- Used to underline "Warning" diagnostics
     DiagnosticUnderlineInfo = { undercurl = true, sp = c.info }, -- Used to underline "Information" diagnostics
     DiagnosticUnderlineHint = { undercurl = true, sp = c.hint }, -- Used to underline "Hint" diagnostics
-
-    LspSignatureActiveParameter = { bg = util.darken(c.blue, 0.4), bold = true },
-    LspCodeLens = { fg = c.window.muted_fg },
-    LspInfoBorder = { fg = c.window.bg2, bg = options.transparent and c.none or c.window.bg },
 
     -- TODO: tree-sitter highlights
     ["@operator"] = { fg = c.white }, -- For any operator: `+`, but also `->` and `*` in C.
@@ -393,8 +388,8 @@ function M.setup()
     CmpItemKindField = { fg = c.red, bg = c.none },
     CmpItemKindSnippet = { fg = c.red, bg = c.none },
 
-    CmpItemKindTypeParameter = { fg = c.orange, bg = c.none },
-    CmpItemKindEnumMember = { fg = c.orange, bg = c.none },
+    CmpItemKindTypeParameter = { fg = c.yellow, bg = c.none },
+    CmpItemKindEnumMember = { fg = c.yellow, bg = c.none },
     CmpItemKindOperator = { fg = c.white, bg = c.none },
 
     -- navic
@@ -424,7 +419,7 @@ function M.setup()
     NavicIconsStruct = { fg = c.yellow, bg = c.none },
     NavicIconsEvent = { fg = c.yellow, bg = c.none },
     NavicIconsOperator = { fg = c.white, bg = c.none },
-    NavicIconsTypeParameter = { fg = c.orange, bg = c.none },
+    NavicIconsTypeParameter = { fg = c.yellow, bg = c.none },
     NavicText = { fg = c.window.muted_fg, bg = c.none },
     NavicSeparator = { fg = c.window.muted_fg, bg = c.none },
 
@@ -524,7 +519,7 @@ function M.setup()
     NoiceCompletionItemKindConstant = { fg = c.orange, bg = c.none },
     NoiceCompletionItemKindEvent = { fg = c.orange, bg = c.none },
     NoiceCompletionItemKindUnit = { fg = c.orange, bg = c.none },
-    NoiceCompletionItemKindTypeParameter = { fg = c.orange, bg = c.none },
+    NoiceCompletionItemKindTypeParameter = { fg = c.yellow, bg = c.none },
     NoiceCompletionItemKindEnumMember = { fg = c.orange, bg = c.none, bold = true },
 
     NoiceCompletionItemKindInterface = { fg = c.yellow, bg = c.none },
